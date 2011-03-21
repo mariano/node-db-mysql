@@ -1,0 +1,3 @@
+[submodule "lib/node-db"]
+	path = lib/node-db
+	url = git://github.com/mariano/node-db.git

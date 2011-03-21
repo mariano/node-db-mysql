@@ -67,6 +67,10 @@ std::string node_db_mysql::Connection::version() const {
 }
 
 node_db::Result* node_db_mysql::Connection::query(const std::string& query) const throw(node_db::Exception&) {
+#ifdef MYSQL_NON_THREADSAFE
+    throw node_db::Exception("This binding needs to be linked with the thread safe MySQL library libmysqlclient_r");
+#endif
+
     if (!this->opened) {
         throw node_db::Exception("Can't execute query without an opened connection");
     }

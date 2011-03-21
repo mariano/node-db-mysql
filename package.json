@@ -1,0 +1,24 @@
+{ "name" : "db-mysql"
+, "description" : "MySQL bindings for Node.JS"
+, "homepage" : "http://github.com/mariano/node-db-mysql"
+, "version" : "0.1.0"
+, "engines" : { "node" : ">=0.4.1" }
+, "maintainers" :
+  [ { "name": "Mariano Iglesias"
+    , "email": "mgiglesias@gmail.com"
+    }
+  ]
+, "bugs" : { "web" : "http://github.com/mariano/node-db-mysql/issues" }
+, "licenses" : [ { "type" : "MIT" } ]
+, "repositories" :
+  [ { "type" : "git"
+    , "url" : "http://github.com/mariano/node-db-mysql.git"
+    }
+  ]
+, "main" : "./db-mysql"
+, "scripts" :
+  { "install" : "node-waf configure build"
+  , "test" : "node-waf test"
+  , "doc" : "node-waf doc"
+  }
+}

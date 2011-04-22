@@ -44,7 +44,6 @@ class Result : public node_db::Result {
     private:
         MYSQL* connection;
         MYSQL_RES* result;
-        MYSQL_FIELD* fields;
         char** previousRow;
         char** nextRow;
 };

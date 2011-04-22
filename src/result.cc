@@ -3,7 +3,45 @@
 
 node_db_mysql::Result::Column::Column(const MYSQL_FIELD& column) {
     this->name = column.name;
-    this->type = STRING;
+
+    switch (column.type) {
+        case MYSQL_TYPE_TINY:
+            this->type = (column.length == 1 ? BOOL : INT);
+            break;
+        case MYSQL_TYPE_BIT:
+        case MYSQL_TYPE_SHORT:
+        case MYSQL_TYPE_YEAR:
+        case MYSQL_TYPE_INT24:
+        case MYSQL_TYPE_LONG:
+        case MYSQL_TYPE_LONGLONG:
+            this->type = INT;
+            break;
+        case MYSQL_TYPE_FLOAT:
+        case MYSQL_TYPE_DOUBLE:
+        case MYSQL_TYPE_DECIMAL:
+        case MYSQL_TYPE_NEWDECIMAL:
+            this->type = NUMBER;
+            break;
+        case MYSQL_TYPE_DATE:
+            this->type = DATE;
+            break;
+        case MYSQL_TYPE_TIME:
+            this->type = TIME;
+            break;
+        case MYSQL_TYPE_TIMESTAMP:
+        case MYSQL_TYPE_DATETIME:
+            this->type = DATETIME;
+            break;
+        case MYSQL_TYPE_BLOB:
+            this->type = TEXT;
+            break;
+        case MYSQL_TYPE_SET:
+            this->type = SET;
+            break;
+        default:
+            this->type = STRING;
+            break;
+    }
 }
 
 node_db_mysql::Result::Column::~Column() {
@@ -29,8 +67,8 @@ node_db_mysql::Result::Result(MYSQL* connection, MYSQL_RES* result) throw(node_d
         throw node_db::Exception("Invalid result");
     }
 
-    this->fields = mysql_fetch_fields(this->result);
-    if (this->fields == NULL) {
+    MYSQL_FIELD* fields = mysql_fetch_fields(this->result);
+    if (fields == NULL) {
         throw node_db::Exception("Could not buffer columns");
     }
 
@@ -42,7 +80,7 @@ node_db_mysql::Result::Result(MYSQL* connection, MYSQL_RES* result) throw(node_d
         }
 
         for (uint16_t i = 0; i < this->totalColumns; i++) {
-            this->columns[i] = new Column(this->fields[i]);
+            this->columns[i] = new Column(fields[i]);
         }
     }
 

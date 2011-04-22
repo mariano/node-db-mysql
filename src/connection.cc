@@ -1,8 +1,8 @@
 // Copyright 2011 Mariano Iglesias <mgiglesias@gmail.com>
 #include "./connection.h"
 
-node_db_mysql::Connection::Connection():
-    connection(NULL) {
+node_db_mysql::Connection::Connection()
+    : connection(NULL) {
     this->quoteString = '\'';
     this->quoteField = '`';
     this->quoteTable = '`';
@@ -31,8 +31,7 @@ void node_db_mysql::Connection::open() throw(node_db::Exception&) {
         this->database.c_str(),
         this->port,
         NULL,
-        0
-    );
+        0);
     if (!this->opened) {
         throw node_db::Exception(mysql_error(this->connection));
     }

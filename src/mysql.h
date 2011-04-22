@@ -1,6 +1,6 @@
 // Copyright 2011 Mariano Iglesias <mgiglesias@gmail.com>
-#ifndef SRC_DRIZZLE_H_
-#define SRC_DRIZZLE_H_
+#ifndef SRC_MYSQL_H_
+#define SRC_MYSQL_H_
 
 #include "./node-db/node_defs.h"
 #include "./node-db/binding.h"
@@ -22,4 +22,4 @@ class Mysql : public node_db::Binding {
 };
 }
 
-#endif  // SRC_DRIZZLE_H_
+#endif  // SRC_MYSQL_H_

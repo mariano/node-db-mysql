@@ -342,7 +342,7 @@ exports["Query"] = testCase({
     },
     "where()": function(test) {
         var mysql = this.mysql;
-        test.expect(8);
+        test.expect(9);
 
         test.throws(
             function () {
@@ -387,6 +387,11 @@ exports["Query"] = testCase({
 
         mysql.query().where("(id=? OR name=?) AND created > ?", [ 1, "Janine O'Hara", new Date(2011,2,12,20,15,0) ]).execute({ start: function(query) {
             test.equal(" WHERE (id=1 OR name='Janine O\\'Hara') AND created > '2011-03-12 20:15:00'", query);
+            return false;
+        }});
+
+        mysql.query().where("1=1").where("2=2").execute({ start: function(query) {
+            test.equal(" WHERE 1=1 AND 2=2", query);
             return false;
         }});
 

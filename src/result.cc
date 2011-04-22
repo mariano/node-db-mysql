@@ -78,7 +78,7 @@ const char** node_db_mysql::Result::next() throw(node_db::Exception&) {
 }
 
 char** node_db_mysql::Result::row() throw(node_db::Exception&) {
-    return mysql_fetch_row(this->result);;
+    return mysql_fetch_row(this->result);
 }
 
 uint64_t node_db_mysql::Result::index() const throw(std::out_of_range&) {

@@ -15,18 +15,21 @@ class Result : public node_db::Result {
             public:
                 explicit Column(const MYSQL_FIELD& column);
                 ~Column();
+                bool isBinary() const;
                 std::string getName() const;
                 node_db::Result::Column::type_t getType() const;
 
             protected:
                 std::string name;
                 type_t type;
+                bool binary;
         };
 
         explicit Result(MYSQL* connection, MYSQL_RES* result) throw(node_db::Exception&);
         ~Result();
         bool hasNext() const;
         const char** next() throw(node_db::Exception&);
+        uint64_t* columnLengths() throw(node_db::Exception&);
         uint64_t index() const throw(std::out_of_range&);
         Column* column(uint16_t i) const throw(std::out_of_range&);
         uint64_t insertId() const;

@@ -2,6 +2,7 @@
 #include "./result.h"
 
 node_db_mysql::Result::Column::Column(const MYSQL_FIELD& column) {
+    this->binary = column.flags & BINARY_FLAG;
     this->name = column.name;
 
     switch (column.type) {
@@ -32,8 +33,15 @@ node_db_mysql::Result::Column::Column(const MYSQL_FIELD& column) {
         case MYSQL_TYPE_DATETIME:
             this->type = DATETIME;
             break;
+        case MYSQL_TYPE_TINY_BLOB:
+        case MYSQL_TYPE_MEDIUM_BLOB:
+        case MYSQL_TYPE_LONG_BLOB:
         case MYSQL_TYPE_BLOB:
             this->type = TEXT;
+            break;
+        case MYSQL_TYPE_STRING:
+        case MYSQL_TYPE_VAR_STRING:
+            this->type = this->binary ? TEXT : STRING;
             break;
         case MYSQL_TYPE_SET:
             this->type = SET;
@@ -45,6 +53,10 @@ node_db_mysql::Result::Column::Column(const MYSQL_FIELD& column) {
 }
 
 node_db_mysql::Result::Column::~Column() {
+}
+
+bool node_db_mysql::Result::Column::isBinary() const {
+    return this->binary;
 }
 
 std::string node_db_mysql::Result::Column::getName() const {
@@ -113,6 +125,10 @@ const char** node_db_mysql::Result::next() throw(node_db::Exception&) {
     this->nextRow = this->row();
 
     return (const char**) this->previousRow;
+}
+
+uint64_t* node_db_mysql::Result::columnLengths() throw(node_db::Exception&) {
+    return mysql_fetch_lengths(this->result);
 }
 
 char** node_db_mysql::Result::row() throw(node_db::Exception&) {

@@ -306,7 +306,7 @@ exports["Query"] = testCase({
 
         test.done();
     },
-    "select()": function(test) {
+    "from()": function(test) {
         var mysql = this.mysql;
         test.expect(6);
 

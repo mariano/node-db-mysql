@@ -1,7 +1,13 @@
 /* Escape & Query building tests */
 
 require("./db-mysql");
-var testCase = require("nodeunit").testCase;
+try {
+    nodeunit = require("nodeunit");
+} catch(err) {
+    require.paths.unshift("/usr/lib/node_modules");
+    nodeunit = require("nodeunit/lib/nodeunit");
+}
+var testCase = nodeunit.testCase;
 
 exports["Mysql"] = testCase({
     "setUp": function(callback) {

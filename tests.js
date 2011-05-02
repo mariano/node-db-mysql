@@ -348,7 +348,7 @@ exports["Query"] = testCase({
     },
     "where()": function(test) {
         var mysql = this.mysql;
-        test.expect(9);
+        test.expect(10);
 
         test.throws(
             function () {
@@ -396,8 +396,13 @@ exports["Query"] = testCase({
             return false;
         }});
 
-        mysql.query().where("1=1").where("2=2").execute({ start: function(query) {
+        mysql.query().where("1=1").and("2=2").execute({ start: function(query) {
             test.equal(" WHERE 1=1 AND 2=2", query);
+            return false;
+        }});
+
+        mysql.query().where("1=1").and("2=2").or("3=3").execute({ start: function(query) {
+            test.equal(" WHERE 1=1 AND 2=2 OR 3=3", query);
             return false;
         }});
 

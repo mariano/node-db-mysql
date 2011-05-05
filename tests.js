@@ -30,10 +30,11 @@ exports["Mysql"] = testCase({
     },
     "table() and field()": function(test) {
         var client = this.client;
-        test.expect(2);
+        test.expect(3);
 
         test.equal("`field`", client.field("field"));
         test.equal("`table`", client.field("table"));
+        test.equal("`table`.`field`", client.field("table.field"));
         
         test.done();
     }

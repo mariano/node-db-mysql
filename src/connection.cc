@@ -3,9 +3,6 @@
 
 node_db_mysql::Connection::Connection()
     : connection(NULL) {
-    this->quoteString = '\'';
-    this->quoteField = '`';
-    this->quoteTable = '`';
     this->connection = new MYSQL();
     if (this->connection == NULL) {
         throw node_db::Exception("Cannot create MYSQL handle");

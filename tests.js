@@ -597,7 +597,7 @@ exports["Query"] = testCase({
     },
     "chained select": function(test) {
         var client = this.client, query = "";
-        test.expect(2);
+        test.expect(3);
 
         query = client.query().
             select("*").
@@ -613,10 +613,11 @@ exports["Query"] = testCase({
             select("*").
             from("users").
             where("id IN ?", [ client.query().
-                select("id").
+                select(["id"]).
                 from("profiles")
             ]).
             sql();
+        test.equal("SELECT * FROM `users` WHERE id IN (SELECT `id` FROM `profiles`)", query);
 
         test.throws(
             function () {

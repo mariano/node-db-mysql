@@ -1,5 +1,6 @@
 { "name" : "db-mysql"
 , "description" : "MySQL database bindings for Node.JS"
+, "keywords": ["database","db","native","binding","library","plugin","client","mysql","libmysql"]
 , "homepage" : "http://nodejsdb.org"
 , "version" : "0.4.1"
 , "engines" : { "node" : ">=0.4.1" }

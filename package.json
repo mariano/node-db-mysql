@@ -1,5 +1,5 @@
 { "name" : "db-mysql"
-, "description" : "MySQL bindings for Node.JS"
+, "description" : "MySQL database bindings for Node.JS"
 , "homepage" : "http://nodejsdb.org"
 , "version" : "0.4.0"
 , "engines" : { "node" : ">=0.4.1" }

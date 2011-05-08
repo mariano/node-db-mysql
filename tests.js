@@ -1,8 +1,8 @@
 /* Escape & Query building tests */
 
-require("./db-mysql");
+var mysql = require("./db-mysql");
 var tests = require("./lib/node-db/tests.js").get(function() {
-    return new Mysql();
+    return new mysql.Database();
 });
 
 for(var test in tests) {

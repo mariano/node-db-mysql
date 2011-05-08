@@ -9,9 +9,8 @@ database bindings visit the [Node.js DB homepage] [homepage].
 
 ## QUICK START ##
 
-    require('db-mysql');
-
-    new Mysql({
+    var mysql = require('db-mysql');
+    new mysql.Database({
         hostname: 'localhost',
         user: 'root',
         password: 'password',

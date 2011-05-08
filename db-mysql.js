@@ -10,4 +10,4 @@
  * @ignore
  */
 var binding = require("./build/default/mysql_bindings");
-Mysql = binding.Mysql;
+exports.Database = binding.Mysql;

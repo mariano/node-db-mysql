@@ -1,6 +1,6 @@
 # db-mysql: MySQL database bindings for Node.js #
 
-For detail information about this and other Node.js
+For detailed information about this and other Node.js
 database bindings visit the [Node DB homepage] [homepage].
 
 ## INSTALL ##

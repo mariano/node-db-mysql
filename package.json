@@ -1,7 +1,7 @@
 { "name" : "db-mysql"
 , "description" : "MySQL bindings for Node.JS"
-, "homepage" : "http://github.com/mariano/node-db-mysql"
-, "version" : "0.1.0"
+, "homepage" : "http://nodejsdb.org"
+, "version" : "0.4.0"
 , "engines" : { "node" : ">=0.4.1" }
 , "maintainers" :
   [ { "name": "Mariano Iglesias"

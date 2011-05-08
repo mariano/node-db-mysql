@@ -1,22 +1,30 @@
-# node-db-mysql: MySQL bindings for Node.js #
+# db-mysql: MySQL database bindings for Node.js #
+
+For detail information about this and other Node.js
+database bindings visit the [Node DB homepage] [homepage].
+
+## INSTALL ##
+
+        $ npm install db-mysql
+
+## QUICK START ##
+
+        require('db-mysql');
+
+        new Mysql({
+            hostname: 'localhost',
+            user: 'root',
+            password: 'password',
+            database: 'node'
+        }).on('ready', function() {
+            this.query().select('*').from('users').execute(function(rows) {
+                console.log(rows.length + ' ROWS');
+            });
+        }).connect();
 
 ## LICENSE ##
 
-node-db-drizzle is released under the [MIT License] [license].
+This module is released under the [MIT License] [license].
 
-## INSTALLATION ##
-
-### Install node-db-mysql ###
-
-#### Using npm ####
-
-    $ npm install db-mysql
-
-#### Using GIT ####
-
-    $ git clone https://github.com/mariano/node-db-mysql.git
-    $ git submodule update --init
-    $ cd node-db-mysql
-    $ npm install
-
+[homepage]: http://nodejsdb.org
 [license]: http://www.opensource.org/licenses/mit-license.php

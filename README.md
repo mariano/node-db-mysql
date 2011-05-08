@@ -5,22 +5,22 @@ database bindings visit the [Node DB homepage] [homepage].
 
 ## INSTALL ##
 
-        $ npm install db-mysql
+    $ npm install db-mysql
 
 ## QUICK START ##
 
-        require('db-mysql');
+    require('db-mysql');
 
-        new Mysql({
-            hostname: 'localhost',
-            user: 'root',
-            password: 'password',
-            database: 'node'
-        }).on('ready', function() {
-            this.query().select('*').from('users').execute(function(rows) {
-                console.log(rows.length + ' ROWS');
-            });
-        }).connect();
+    new Mysql({
+        hostname: 'localhost',
+        user: 'root',
+        password: 'password',
+        database: 'node'
+    }).on('ready', function() {
+        this.query().select('*').from('users').execute(function(rows) {
+            console.log(rows.length + ' ROWS');
+        });
+    }).connect();
 
 ## LICENSE ##
 

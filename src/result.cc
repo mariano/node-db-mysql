@@ -127,7 +127,7 @@ const char** node_db_mysql::Result::next() throw(node_db::Exception&) {
     return (const char**) this->previousRow;
 }
 
-uint64_t* node_db_mysql::Result::columnLengths() throw(node_db::Exception&) {
+unsigned long* node_db_mysql::Result::columnLengths() throw(node_db::Exception&) {
     return mysql_fetch_lengths(this->result);
 }
 

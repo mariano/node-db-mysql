@@ -5,6 +5,17 @@ database bindings visit the [Node.js DB homepage] [homepage].
 
 ## INSTALL ##
 
+Before proceeding with installation, you need to have the libmysql
+development libraries and include files. Access to the mysql_config 
+binary is mandatory, and has to be part of the path prior to 
+installation. If the path to your mysql_config is
+/usr/local/bin/mysql_config make sure to do the following (Ubuntu
+users need to install the libmysqlclient-dev package):
+
+    $ export PATH=/usr/local/bin:$PATH
+
+Once you are sure mysql_config is part of the path, install with npm:
+
     $ npm install db-mysql
 
 ## QUICK START ##

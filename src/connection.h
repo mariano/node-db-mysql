@@ -2,7 +2,7 @@
 #ifndef SRC_CONNECTION_H_
 #define SRC_CONNECTION_H_
 
-#include <mysql/mysql.h>
+#include <mysql.h>
 #include <string>
 #include "./node-db/connection.h"
 #include "./result.h"

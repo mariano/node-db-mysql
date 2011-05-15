@@ -2,7 +2,7 @@
 #ifndef SRC_RESULT_H_
 #define SRC_RESULT_H_
 
-#include <mysql/mysql.h>
+#include <mysql.h>
 #include <string>
 #include <stdexcept>
 #include "./node-db/exception.h"

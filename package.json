@@ -2,7 +2,7 @@
 , "description" : "MySQL database bindings for Node.JS"
 , "keywords": ["database","db","native","binding","library","plugin","client","mysql","libmysql"]
 , "homepage" : "http://nodejsdb.org"
-, "version" : "0.4.5"
+, "version" : "0.4.6"
 , "engines" : { "node" : ">=0.4.1" }
 , "maintainers" :
   [ { "name": "Mariano Iglesias"

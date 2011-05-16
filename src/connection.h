@@ -12,11 +12,16 @@ class Connection : public node_db::Connection {
     public:
         Connection();
         ~Connection();
+        std::string getSocket() const;
+        void setSocket(const std::string& user);
         void open() throw(node_db::Exception&);
         void close();
         std::string escape(const std::string& string) const throw(node_db::Exception&);
         std::string version() const;
         node_db::Result* query(const std::string& query) const throw(node_db::Exception&);
+
+    protected:
+        std::string socket;
 
     private:
         MYSQL* connection;

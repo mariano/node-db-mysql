@@ -17,6 +17,14 @@ node_db_mysql::Connection::~Connection() {
     }
 }
 
+void node_db_mysql::Connection::setSocket(const std::string& socket) {
+    this->socket = socket;
+}
+
+std::string node_db_mysql::Connection::getSocket() const {
+    return this->socket;
+}
+
 void node_db_mysql::Connection::open() throw(node_db::Exception&) {
     this->close();
 
@@ -27,7 +35,7 @@ void node_db_mysql::Connection::open() throw(node_db::Exception&) {
         this->password.c_str(),
         this->database.c_str(),
         this->port,
-        NULL,
+        !this->socket.empty() ? this->socket.c_str() : NULL,
         0);
     if (!this->opened) {
         throw node_db::Exception(mysql_error(this->connection));

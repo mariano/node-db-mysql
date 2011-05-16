@@ -48,6 +48,22 @@ v8::Handle<v8::Value> node_db_mysql::Mysql::New(const v8::Arguments& args) {
     return scope.Close(args.This());
 }
 
+v8::Handle<v8::Value> node_db_mysql::Mysql::set(const v8::Arguments& args) {
+    v8::Handle<v8::Value> result = node_db::Binding::set(args);
+
+    v8::Local<v8::Object> options = args[0]->ToObject();
+    ARG_CHECK_OBJECT_ATTR_OPTIONAL_STRING(options, socket);
+
+    node_db_mysql::Connection* connection = static_cast<node_db_mysql::Connection*>(this->connection);
+
+    if (options->Has(socket_key)) {
+        v8::String::Utf8Value socket(options->Get(socket_key)->ToString());
+        connection->setSocket(*socket);
+    }
+
+    return result;
+}
+
 v8::Persistent<v8::Object> node_db_mysql::Mysql::createQuery() const {
     v8::Persistent<v8::Object> query(
         node_db_mysql::Query::constructorTemplate->GetFunction()->NewInstance());

@@ -1,7 +1,7 @@
 # db-mysql: MySQL database bindings for Node.js #
 
 For detailed information about this and other Node.js
-database bindings visit the [Node.js DB homepage] [homepage].
+database bindings visit the [Node.js db-mysql homepage] [homepage].
 
 ## INSTALL ##
 
@@ -36,5 +36,5 @@ Once you are sure mysql_config is part of the path, install with npm:
 
 This module is released under the [MIT License] [license].
 
-[homepage]: http://nodejsdb.org
+[homepage]: http://nodejsdb.org/db-mysql
 [license]: http://www.opensource.org/licenses/mit-license.php

@@ -70,6 +70,7 @@ node_db::Result::Column::type_t node_db_mysql::Result::Column::getType() const {
 node_db_mysql::Result::Result(MYSQL* connection, MYSQL_RES* result) throw(node_db::Exception&)
     : columns(NULL),
     totalColumns(0),
+    totalRows(0),
     rowNumber(0),
     connection(connection),
     result(result),
@@ -84,6 +85,7 @@ node_db_mysql::Result::Result(MYSQL* connection, MYSQL_RES* result) throw(node_d
         throw node_db::Exception("Could not buffer columns");
     }
 
+    this->totalRows = mysql_num_rows(this->result);
     this->totalColumns = mysql_num_fields(this->result);
     if (this->totalColumns > 0) {
         this->columns = new Column*[this->totalColumns];
@@ -163,4 +165,8 @@ uint16_t node_db_mysql::Result::warningCount() const {
 
 uint16_t node_db_mysql::Result::columnCount() const {
     return this->totalColumns;
+}
+
+uint64_t node_db_mysql::Result::count() const throw() {
+    return this->totalRows;
 }

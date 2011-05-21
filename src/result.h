@@ -36,10 +36,12 @@ class Result : public node_db::Result {
         uint16_t columnCount() const;
         uint64_t affectedCount() const;
         uint16_t warningCount() const;
+        uint64_t count() const throw();
 
     protected:
         Column **columns;
         uint16_t totalColumns;
+        uint64_t totalRows;
         uint64_t rowNumber;
 
         char **row() throw(node_db::Exception&);

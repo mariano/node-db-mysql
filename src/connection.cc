@@ -79,7 +79,7 @@ node_db::Result* node_db_mysql::Connection::query(const std::string& query) cons
         throw node_db::Exception("Can't execute query without an opened connection");
     }
 
-    if (mysql_query(this->connection, query.c_str()) != 0) {
+    if (mysql_real_query(this->connection, query.c_str(), query.length()) != 0) {
         throw node_db::Exception(mysql_error(this->connection));
     }
 

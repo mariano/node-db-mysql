@@ -70,7 +70,6 @@ node_db::Result::Column::type_t node_db_mysql::Result::Column::getType() const {
 node_db_mysql::Result::Result(MYSQL* connection, MYSQL_RES* result) throw(node_db::Exception&)
     : columns(NULL),
     totalColumns(0),
-    totalRows(0),
     rowNumber(0),
     connection(connection),
     result(result),
@@ -85,7 +84,6 @@ node_db_mysql::Result::Result(MYSQL* connection, MYSQL_RES* result) throw(node_d
         throw node_db::Exception("Could not buffer columns");
     }
 
-    this->totalRows = mysql_num_rows(this->result);
     this->totalColumns = mysql_num_fields(this->result);
     if (this->totalColumns > 0) {
         this->columns = new Column*[this->totalColumns];
@@ -117,7 +115,7 @@ bool node_db_mysql::Result::hasNext() const {
     return (this->nextRow != NULL);
 }
 
-const char** node_db_mysql::Result::next() throw(node_db::Exception&) {
+char** node_db_mysql::Result::next() throw(node_db::Exception&) {
     if (this->nextRow == NULL) {
         return NULL;
     }
@@ -126,7 +124,7 @@ const char** node_db_mysql::Result::next() throw(node_db::Exception&) {
     this->previousRow = this->nextRow;
     this->nextRow = this->row();
 
-    return (const char**) this->previousRow;
+    return this->previousRow;
 }
 
 unsigned long* node_db_mysql::Result::columnLengths() throw(node_db::Exception&) {
@@ -167,6 +165,13 @@ uint16_t node_db_mysql::Result::columnCount() const {
     return this->totalColumns;
 }
 
-uint64_t node_db_mysql::Result::count() const throw() {
-    return this->totalRows;
+uint64_t node_db_mysql::Result::count() const throw(node_db::Exception&) {
+    if (!this->isBuffered()) {
+        throw node_db::Exception("Result is not buffered");
+    }
+    return mysql_num_rows(this->result);
+}
+
+bool node_db_mysql::Result::isBuffered() const throw() {
+    return (!this->result->handle || this->result->handle->status != MYSQL_STATUS_USE_RESULT);
 }

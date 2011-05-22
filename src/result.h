@@ -28,7 +28,7 @@ class Result : public node_db::Result {
         explicit Result(MYSQL* connection, MYSQL_RES* result) throw(node_db::Exception&);
         ~Result();
         bool hasNext() const;
-        const char** next() throw(node_db::Exception&);
+        char** next() throw(node_db::Exception&);
         unsigned long* columnLengths() throw(node_db::Exception&);
         uint64_t index() const throw(std::out_of_range&);
         Column* column(uint16_t i) const throw(std::out_of_range&);
@@ -36,15 +36,15 @@ class Result : public node_db::Result {
         uint16_t columnCount() const;
         uint64_t affectedCount() const;
         uint16_t warningCount() const;
-        uint64_t count() const throw();
+        uint64_t count() const throw(node_db::Exception&);
+        bool isBuffered() const throw();
 
     protected:
-        Column **columns;
+        Column** columns;
         uint16_t totalColumns;
-        uint64_t totalRows;
         uint64_t rowNumber;
 
-        char **row() throw(node_db::Exception&);
+        char** row() throw(node_db::Exception&);
 
     private:
         MYSQL* connection;

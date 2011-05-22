@@ -11,11 +11,10 @@ from os.path import exists
 
 srcdir = "."
 blddir = "build"
-VERSION = "0.5.3"
+VERSION = "0.5.4"
 
 def set_options(opt):
   opt.tool_options("compiler_cxx")
-  opt.add_option('--mysql-config', action='store', default='mysql_config', help='Path to mysql_config, e.g. /usr/bin/mysql_config')
   opt.add_option('--debug', action='store_true', help='Run tests with nodeunit_g')
   opt.add_option('--warn', action='store_true', help='Enable extra -W* compiler flags')
 
@@ -32,17 +31,11 @@ def configure(conf):
     conf.env.append_unique('CXXFLAGS', ["-Wconversion", "-Wshadow", "-Wsign-conversion", "-Wunreachable-code", "-Wredundant-decls", "-Wcast-qual"])
 
   # MySQL flags and libraries
-  mysql_config = conf.find_program(Options.options.mysql_config, mandatory=True)
+  mysql_config = conf.find_program('mysql_config', var='MYSQL_CONFIG', mandatory=True)
+
   conf.env.append_unique('CXXFLAGS', Utils.cmd_output(mysql_config + ' --include').split())
   conf.env.append_unique('LINKFLAGS', Utils.cmd_output(mysql_config + ' --libs_r').split())
-
-  if not conf.check_cxx(lib="mysqlclient_r", errmsg="not found, try to find nonthreadsafe libmysqlclient"):
-    # link flags are needed to find the libraries
-    conf.env.append_unique('LINKFLAGS', Utils.cmd_output(mysql_config + ' --libs').split())
-    if conf.check_cxx(lib="mysqlclient"):
-      conf.env.append_unique('CXXDEFINES', ["MYSQL_NON_THREADSAFE"])
-    else:
-      conf.fatal("Missing both libmysqlclient_r and libmysqlclient from libmysqlclient-devel or mysql-devel package")
+  conf.check_cxx(lib="mysqlclient_r", errmsg="Missing libmysqlclient_r")
 
 def build(bld):
   obj = bld.new_task_gen("cxx", "shlib", "node_addon")

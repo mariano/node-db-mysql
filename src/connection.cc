@@ -83,10 +83,5 @@ node_db::Result* node_db_mysql::Connection::query(const std::string& query) cons
         throw node_db::Exception(mysql_error(this->connection));
     }
 
-    MYSQL_RES* result = mysql_store_result(this->connection);
-    if (result == NULL) {
-        throw node_db::Exception("Could not fetch result of query");
-    }
-
-    return new node_db_mysql::Result(this->connection, result);
+    return new node_db_mysql::Result(this->connection);
 }

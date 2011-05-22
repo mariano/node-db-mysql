@@ -67,36 +67,40 @@ node_db::Result::Column::type_t node_db_mysql::Result::Column::getType() const {
     return this->type;
 }
 
-node_db_mysql::Result::Result(MYSQL* connection, MYSQL_RES* result) throw(node_db::Exception&)
+node_db_mysql::Result::Result(MYSQL* connection) throw(node_db::Exception&)
     : columns(NULL),
     totalColumns(0),
     rowNumber(0),
+    empty(true),
     connection(connection),
-    result(result),
     previousRow(NULL),
     nextRow(NULL) {
-    if (this->result == NULL) {
-        throw node_db::Exception("Invalid result");
-    }
 
-    MYSQL_FIELD* fields = mysql_fetch_fields(this->result);
-    if (fields == NULL) {
-        throw node_db::Exception("Could not buffer columns");
-    }
+    this->result = mysql_store_result(this->connection);
+    if (result == NULL && mysql_field_count(this->connection) != 0) {
+        throw node_db::Exception(mysql_error(this->connection));
+    } else if (result != NULL) {
+        this->empty = false;
 
-    this->totalColumns = mysql_num_fields(this->result);
-    if (this->totalColumns > 0) {
-        this->columns = new Column*[this->totalColumns];
-        if (this->columns == NULL) {
-            throw node_db::Exception("Could not allocate storage for columns");
+        MYSQL_FIELD* fields = mysql_fetch_fields(this->result);
+        if (fields == NULL) {
+            throw node_db::Exception("Could not buffer columns");
         }
 
-        for (uint16_t i = 0; i < this->totalColumns; i++) {
-            this->columns[i] = new Column(fields[i]);
-        }
-    }
+        this->totalColumns = mysql_num_fields(this->result);
+        if (this->totalColumns > 0) {
+            this->columns = new Column*[this->totalColumns];
+            if (this->columns == NULL) {
+                throw node_db::Exception("Could not allocate storage for columns");
+            }
 
-    this->nextRow = this->row();
+            for (uint16_t i = 0; i < this->totalColumns; i++) {
+                this->columns[i] = new Column(fields[i]);
+            }
+        }
+
+        this->nextRow = this->row();
+    }
 }
 
 node_db_mysql::Result::~Result() {
@@ -174,4 +178,8 @@ uint64_t node_db_mysql::Result::count() const throw(node_db::Exception&) {
 
 bool node_db_mysql::Result::isBuffered() const throw() {
     return (!this->result->handle || this->result->handle->status != MYSQL_STATUS_USE_RESULT);
+}
+
+bool node_db_mysql::Result::isEmpty() const throw() {
+    return this->empty;
 }

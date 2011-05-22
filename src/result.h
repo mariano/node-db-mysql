@@ -25,7 +25,7 @@ class Result : public node_db::Result {
                 bool binary;
         };
 
-        explicit Result(MYSQL* connection, MYSQL_RES* result) throw(node_db::Exception&);
+        explicit Result(MYSQL* connection) throw(node_db::Exception&);
         ~Result();
         bool hasNext() const;
         char** next() throw(node_db::Exception&);
@@ -38,11 +38,13 @@ class Result : public node_db::Result {
         uint16_t warningCount() const;
         uint64_t count() const throw(node_db::Exception&);
         bool isBuffered() const throw();
+        bool isEmpty() const throw();
 
     protected:
         Column** columns;
         uint16_t totalColumns;
         uint64_t rowNumber;
+        bool empty;
 
         char** row() throw(node_db::Exception&);
 

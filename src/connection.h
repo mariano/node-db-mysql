@@ -12,8 +12,15 @@ class Connection : public node_db::Connection {
     public:
         Connection();
         ~Connection();
-        std::string getSocket() const;
-        void setSocket(const std::string& user);
+        void setCharset(const std::string& charset) throw();
+        void setCompress(const bool compress) throw();
+        void setInitCommand(const std::string& initCommand) throw();
+        void setReadTimeout(const uint32_t readTimeout) throw();
+        void setReconnect(const bool reconnect) throw();
+        void setSocket(const std::string& socket) throw();
+        void setSslVerifyServer(const bool sslVerifyServer) throw();
+        void setTimeout(const uint32_t timeout) throw();
+        void setWriteTimeout(const uint32_t writeTimeout) throw();
         void open() throw(node_db::Exception&);
         void close();
         std::string escape(const std::string& string) const throw(node_db::Exception&);
@@ -21,7 +28,15 @@ class Connection : public node_db::Connection {
         node_db::Result* query(const std::string& query) const throw(node_db::Exception&);
 
     protected:
+        std::string charset;
+        bool compress;
+        std::string initCommand;
+        uint32_t readTimeout;
+        bool reconnect;
         std::string socket;
+        bool sslVerifyServer;
+        uint32_t timeout;
+        uint32_t writeTimeout;
 
     private:
         MYSQL* connection;

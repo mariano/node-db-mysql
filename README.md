@@ -29,7 +29,11 @@ you specified the MYSQL_CONFIG environment var, install with npm:
         password: 'password',
         database: 'node'
     }).on('ready', function() {
-        this.query().select('*').from('users').execute(function(rows) {
+        this.query().select('*').from('users').execute(function(error, rows) {
+            if (error) {
+                console.log('ERROR: ' + error);
+                return;
+            }
             console.log(rows.length + ' ROWS');
         });
     }).connect();

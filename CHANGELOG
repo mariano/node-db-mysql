@@ -1,0 +1,12 @@
+For more in depth changelog, check the Github Commits:
+
+https://github.com/mariano/node-db-mysql/commits/master
+
+0.5.7
+-----
+* [API CHANGE] Query.execute() callback now takes error as its first argument
+* Added new optional connection options: charset, compress, initCommand, readTimeout, reconnect, sslVerifyServer, timeout, writeTimeout
+
+0.5.6
+-----
+First public release

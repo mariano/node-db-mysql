@@ -59,7 +59,7 @@ void node_db_mysql::Connection::open() throw(node_db::Exception&) {
     }
 
     if (this->compress) {
-        mysql_options(this->connection, MYSQL_OPT_COMPRESS, 0);
+        mysql_options(this->connection, MYSQL_OPT_COMPRESS, (const char*) 0);
     }
 
     if (!this->initCommand.empty()) {
@@ -67,21 +67,21 @@ void node_db_mysql::Connection::open() throw(node_db::Exception&) {
     }
 
     if (this->readTimeout > 0) {
-        mysql_options(this->connection, MYSQL_OPT_READ_TIMEOUT, &this->readTimeout);
+        mysql_options(this->connection, MYSQL_OPT_READ_TIMEOUT, (const char*) &this->readTimeout);
     }
 
 #if MYSQL_VERSION_ID >= 50013
-    mysql_options(this->connection, MYSQL_OPT_RECONNECT, &this->reconnect);
+    mysql_options(this->connection, MYSQL_OPT_RECONNECT, (const char*) &this->reconnect);
 #endif
 
-    mysql_options(this->connection, MYSQL_OPT_SSL_VERIFY_SERVER_CERT, &this->sslVerifyServer);
+    mysql_options(this->connection, MYSQL_OPT_SSL_VERIFY_SERVER_CERT, (const char*) &this->sslVerifyServer);
 
     if (this->timeout > 0) {
-        mysql_options(this->connection, MYSQL_OPT_CONNECT_TIMEOUT, &this->timeout);
+        mysql_options(this->connection, MYSQL_OPT_CONNECT_TIMEOUT, (const char*) &this->timeout);
     }
 
     if (this->writeTimeout > 0) {
-        mysql_options(this->connection, MYSQL_OPT_WRITE_TIMEOUT, &this->writeTimeout);
+        mysql_options(this->connection, MYSQL_OPT_WRITE_TIMEOUT, (const char*) &this->writeTimeout);
     }
 
     this->opened = mysql_real_connect(
@@ -96,7 +96,7 @@ void node_db_mysql::Connection::open() throw(node_db::Exception&) {
 
 #if MYSQL_VERSION_ID >= 50013 && MYSQL_VERSION_ID < 50019
     // MySQL incorrectly resets the MYSQL_OPT_RECONNECT option to its default value before MySQL 5.0.19
-    mysql_options(this->connection, MYSQL_OPT_RECONNECT, &this->reconnect);
+    mysql_options(this->connection, MYSQL_OPT_RECONNECT, (const char*) &this->reconnect);
 #endif
 
     if (!this->opened) {

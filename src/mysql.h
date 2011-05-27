@@ -18,7 +18,7 @@ class Mysql : public node_db::Binding {
         Mysql();
         ~Mysql();
         static v8::Handle<v8::Value> New(const v8::Arguments& args);
-        v8::Handle<v8::Value> set(const v8::Arguments& args);
+        v8::Handle<v8::Value> set(const v8::Local<v8::Object> options);
         v8::Persistent<v8::Object> createQuery() const;
 };
 }

@@ -1,5 +1,4 @@
 /build/*
-/mysql-test.js
 *.node
 *.sh
 *.swp

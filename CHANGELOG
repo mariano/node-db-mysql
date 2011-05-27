@@ -2,6 +2,11 @@ For more in depth changelog, check the Github Commits:
 
 https://github.com/mariano/node-db-mysql/commits/master
 
+0.5.8
+-----
+* Database.connect() now takes an error-first callback
+* Fixing compilation issues in CentOS
+
 0.5.7
 -----
 * [API CHANGE] Query.execute() callback now takes error as its first argument

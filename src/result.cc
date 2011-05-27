@@ -147,7 +147,7 @@ uint64_t node_db_mysql::Result::index() const throw(std::out_of_range&) {
 }
 
 node_db_mysql::Result::Column* node_db_mysql::Result::column(uint16_t i) const throw(std::out_of_range&) {
-    if (i < 0 || i >= this->totalColumns) {
+    if (i >= this->totalColumns) {
         throw std::out_of_range("Wrong column index");
     }
     return this->columns[i];

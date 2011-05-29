@@ -2,6 +2,10 @@ For more in depth changelog, check the Github Commits:
 
 https://github.com/mariano/node-db-mysql/commits/master
 
+0.6.0
+-----
+* Fixing issue where Database.name() was escaping star chars
+
 0.5.9
 -----
 * Fixing compilation warnings on some 32 bit systems (CentOS)

@@ -2,6 +2,10 @@ For more in depth changelog, check the Github Commits:
 
 https://github.com/mariano/node-db-mysql/commits/master
 
+0.6.1
+-----
+* Fixing issue where Query.execute(callback, options) was not easily doable
+
 0.6.0
 -----
 * Fixing issue where Database.name() was escaping star chars

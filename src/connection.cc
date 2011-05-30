@@ -4,7 +4,7 @@
 node_db_mysql::Connection::Connection()
     : compress(false),
       readTimeout(0),
-      reconnect(false),
+      reconnect(true),
       sslVerifyServer(false),
       timeout(0),
       writeTimeout(0),
@@ -51,6 +51,13 @@ void node_db_mysql::Connection::setWriteTimeout(const uint32_t writeTimeout) thr
     this->writeTimeout = writeTimeout;
 }
 
+bool node_db_mysql::Connection::isAlive(bool ping) throw() {
+    if (ping && this->alive) {
+        this->alive = (mysql_ping(this->connection) == 0);
+    }
+    return this->alive;
+}
+
 void node_db_mysql::Connection::open() throw(node_db::Exception&) {
     this->close();
 
@@ -84,7 +91,7 @@ void node_db_mysql::Connection::open() throw(node_db::Exception&) {
         mysql_options(this->connection, MYSQL_OPT_WRITE_TIMEOUT, (const char*) &this->writeTimeout);
     }
 
-    this->opened = mysql_real_connect(
+    this->alive = mysql_real_connect(
         this->connection,
         this->hostname.c_str(),
         this->user.c_str(),
@@ -99,16 +106,16 @@ void node_db_mysql::Connection::open() throw(node_db::Exception&) {
     mysql_options(this->connection, MYSQL_OPT_RECONNECT, (const char*) &this->reconnect);
 #endif
 
-    if (!this->opened) {
+    if (!this->alive) {
         throw node_db::Exception(mysql_error(this->connection));
     }
 }
 
 void node_db_mysql::Connection::close() {
-    if (this->opened) {
+    if (this->alive) {
         mysql_close(this->connection);
     }
-    this->opened = false;
+    this->alive = false;
 }
 
 std::string node_db_mysql::Connection::escape(const std::string& string) const throw(node_db::Exception&) {
@@ -125,10 +132,7 @@ std::string node_db_mysql::Connection::escape(const std::string& string) const t
 }
 
 std::string node_db_mysql::Connection::version() const {
-    std::string version;
-    if (this->opened) {
-        version = mysql_get_server_info(this->connection);
-    }
+    std::string version = mysql_get_server_info(this->connection);
     return version;
 }
 
@@ -136,10 +140,6 @@ node_db::Result* node_db_mysql::Connection::query(const std::string& query) cons
 #ifdef MYSQL_NON_THREADSAFE
     throw node_db::Exception("This binding needs to be linked with the thread safe MySQL library libmysqlclient_r");
 #endif
-
-    if (!this->opened) {
-        throw node_db::Exception("Can't execute query without an opened connection");
-    }
 
     if (mysql_real_query(this->connection, query.c_str(), query.length()) != 0) {
         throw node_db::Exception(mysql_error(this->connection));

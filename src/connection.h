@@ -21,6 +21,7 @@ class Connection : public node_db::Connection {
         void setSslVerifyServer(const bool sslVerifyServer) throw();
         void setTimeout(const uint32_t timeout) throw();
         void setWriteTimeout(const uint32_t writeTimeout) throw();
+        bool isAlive(bool ping) throw();
         void open() throw(node_db::Exception&);
         void close();
         std::string escape(const std::string& string) const throw(node_db::Exception&);

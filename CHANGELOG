@@ -5,6 +5,7 @@ https://github.com/mariano/node-db-mysql/commits/master
 0.6.3
 -----
 * Exporting Query so its prototype can be extended from JS
+* Query.execute() callback now is issued in the Query instance scope
 
 0.6.2
 -----

@@ -75,7 +75,6 @@ node_db_mysql::Result::Result(MYSQL* connection) throw(node_db::Exception&)
     connection(connection),
     previousRow(NULL),
     nextRow(NULL) {
-
     this->result = mysql_store_result(this->connection);
     if (result == NULL && mysql_field_count(this->connection) != 0) {
         throw node_db::Exception(mysql_error(this->connection));

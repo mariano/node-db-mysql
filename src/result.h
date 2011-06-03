@@ -27,6 +27,7 @@ class Result : public node_db::Result {
 
         explicit Result(MYSQL* connection) throw(node_db::Exception&);
         ~Result();
+        void release() throw();
         bool hasNext() const throw();
         char** next() throw(node_db::Exception&);
         unsigned long* columnLengths() throw(node_db::Exception&);

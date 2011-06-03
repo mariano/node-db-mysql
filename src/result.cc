@@ -128,7 +128,7 @@ void node_db_mysql::Result::free() throw() {
     }
 }
 
-bool node_db_mysql::Result::hasNext() const {
+bool node_db_mysql::Result::hasNext() const throw() {
     return (this->nextRow != NULL);
 }
 
@@ -166,19 +166,19 @@ node_db_mysql::Result::Column* node_db_mysql::Result::column(uint16_t i) const t
     return this->columns[i];
 }
 
-uint64_t node_db_mysql::Result::insertId() const {
+uint64_t node_db_mysql::Result::insertId() const throw() {
     return mysql_insert_id(this->connection);
 }
 
-uint64_t node_db_mysql::Result::affectedCount() const {
+uint64_t node_db_mysql::Result::affectedCount() const throw() {
     return mysql_affected_rows(this->connection);
 }
 
-uint16_t node_db_mysql::Result::warningCount() const {
+uint16_t node_db_mysql::Result::warningCount() const throw() {
     return mysql_warning_count(this->connection);
 }
 
-uint16_t node_db_mysql::Result::columnCount() const {
+uint16_t node_db_mysql::Result::columnCount() const throw() {
     return this->totalColumns;
 }
 

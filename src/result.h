@@ -27,15 +27,15 @@ class Result : public node_db::Result {
 
         explicit Result(MYSQL* connection) throw(node_db::Exception&);
         ~Result();
-        bool hasNext() const;
+        bool hasNext() const throw();
         char** next() throw(node_db::Exception&);
         unsigned long* columnLengths() throw(node_db::Exception&);
         uint64_t index() const throw(std::out_of_range&);
         Column* column(uint16_t i) const throw(std::out_of_range&);
-        uint64_t insertId() const;
-        uint16_t columnCount() const;
-        uint64_t affectedCount() const;
-        uint16_t warningCount() const;
+        uint64_t insertId() const throw();
+        uint16_t columnCount() const throw();
+        uint64_t affectedCount() const throw();
+        uint16_t warningCount() const throw();
         uint64_t count() const throw(node_db::Exception&);
         bool isBuffered() const throw();
         bool isEmpty() const throw();

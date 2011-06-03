@@ -76,37 +76,47 @@ node_db_mysql::Result::Result(MYSQL* connection) throw(node_db::Exception&)
     previousRow(NULL),
     nextRow(NULL) {
     this->result = mysql_store_result(this->connection);
-    if (result == NULL && mysql_field_count(this->connection) != 0) {
-        throw node_db::Exception(mysql_error(this->connection));
-    } else if (result != NULL) {
-        this->empty = false;
 
-        MYSQL_FIELD* fields = mysql_fetch_fields(this->result);
-        if (fields == NULL) {
-            throw node_db::Exception("Could not buffer columns");
-        }
+    try {
+        if (result == NULL && mysql_field_count(this->connection) != 0) {
+            throw node_db::Exception(mysql_error(this->connection));
+        } else if (result != NULL) {
+            this->empty = false;
 
-        this->totalColumns = mysql_num_fields(this->result);
-        if (this->totalColumns > 0) {
-            this->columns = new Column*[this->totalColumns];
-            if (this->columns == NULL) {
-                throw node_db::Exception("Could not allocate storage for columns");
+            MYSQL_FIELD* fields = mysql_fetch_fields(this->result);
+            if (fields == NULL) {
+                throw node_db::Exception("Could not buffer columns");
             }
 
-            for (uint16_t i = 0; i < this->totalColumns; i++) {
-                this->columns[i] = new Column(fields[i]);
-                if (this->columns[i] == NULL) {
-                    delete [] this->columns;
-                    throw node_db::Exception("Could not allocate storage for column");
+            this->totalColumns = mysql_num_fields(this->result);
+            if (this->totalColumns > 0) {
+                this->columns = new Column*[this->totalColumns];
+                if (this->columns == NULL) {
+                    throw node_db::Exception("Could not allocate storage for columns");
+                }
+
+                for (uint16_t i = 0; i < this->totalColumns; i++) {
+                    this->columns[i] = new Column(fields[i]);
+                    if (this->columns[i] == NULL) {
+                        this->totalColumns = i;
+                        throw node_db::Exception("Could not allocate storage for column");
+                    }
                 }
             }
-        }
 
-        this->nextRow = this->row();
+            this->nextRow = this->row();
+        }
+    } catch(...) {
+        this->free();
+        throw;
     }
 }
 
 node_db_mysql::Result::~Result() {
+    this->free();
+}
+
+void node_db_mysql::Result::free() throw() {
     if (this->columns != NULL) {
         for (uint16_t i = 0; i < this->totalColumns; i++) {
             delete this->columns[i];

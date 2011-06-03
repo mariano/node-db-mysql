@@ -13,15 +13,20 @@ the path to your mysql_config is /usr/local/bin/mysql_config make
 sure to do the following (Ubuntu users need to install the 
 libmysqlclient-dev package):
 
+```bash
     $ export MYSQL_CONFIG=/usr/local/bin/mysql_config
+```
 
 Once you are sure that either mysql_config is part of the path or that
 you specified the MYSQL_CONFIG environment var, install with npm:
 
+```bash
     $ npm install db-mysql
+```
 
 ## QUICK START ##
 
+```javascript
     var mysql = require('db-mysql');
     new mysql.Database({
         hostname: 'localhost',
@@ -40,6 +45,7 @@ you specified the MYSQL_CONFIG environment var, install with npm:
             console.log(rows.length + ' ROWS');
         });
     });
+```
 
 ## LICENSE ##
 

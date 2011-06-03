@@ -95,6 +95,10 @@ node_db_mysql::Result::Result(MYSQL* connection) throw(node_db::Exception&)
 
             for (uint16_t i = 0; i < this->totalColumns; i++) {
                 this->columns[i] = new Column(fields[i]);
+                if (this->columns[i] == NULL) {
+                    delete [] this->columns;
+                    throw node_db::Exception("Could not allocate storage for column");
+                }
             }
         }
 

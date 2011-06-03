@@ -117,20 +117,14 @@ node_db_mysql::Result::~Result() {
 }
 
 void node_db_mysql::Result::free() throw() {
-    this->release();
-
     if (this->columns != NULL) {
         for (uint16_t i = 0; i < this->totalColumns; i++) {
             delete this->columns[i];
         }
         delete [] this->columns;
     }
-}
-
-void node_db_mysql::Result::release() throw() {
     if (this->result != NULL) {
         mysql_free_result(this->result);
-        this->result = NULL;
     }
 }
 

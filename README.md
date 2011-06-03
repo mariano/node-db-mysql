@@ -14,37 +14,37 @@ sure to do the following (Ubuntu users need to install the
 libmysqlclient-dev package):
 
 ```bash
-    $ export MYSQL_CONFIG=/usr/local/bin/mysql_config
+$ export MYSQL_CONFIG=/usr/local/bin/mysql_config
 ```
 
 Once you are sure that either mysql_config is part of the path or that
 you specified the MYSQL_CONFIG environment var, install with npm:
 
 ```bash
-    $ npm install db-mysql
+$ npm install db-mysql
 ```
 
 ## QUICK START ##
 
 ```javascript
-    var mysql = require('db-mysql');
-    new mysql.Database({
-        hostname: 'localhost',
-        user: 'root',
-        password: 'password',
-        database: 'node'
-    }).connect(function(error) {
-        if (error) {
-            return console.log("CONNECTION ERROR: " + error);
-        }
+var mysql = require('db-mysql');
+new mysql.Database({
+    hostname: 'localhost',
+    user: 'root',
+    password: 'password',
+    database: 'node'
+}).connect(function(error) {
+    if (error) {
+        return console.log("CONNECTION ERROR: " + error);
+    }
 
-        this.query().select('*').from('users').execute(function(error, rows) {
-            if (error) {
-                return console.log('ERROR: ' + error);
-            }
-            console.log(rows.length + ' ROWS');
-        });
+    this.query().select('*').from('users').execute(function(error, rows) {
+        if (error) {
+            return console.log('ERROR: ' + error);
+        }
+        console.log(rows.length + ' ROWS');
     });
+});
 ```
 
 ## LICENSE ##

@@ -31,16 +31,24 @@ void node_db_mysql::Connection::setCompress(const bool compress) throw() {
     this->compress = compress;
 }
 
-void node_db_mysql::Connection::setReadTimeout(const uint32_t readTimeout) throw() {
-    this->readTimeout = readTimeout;
-}
-
 void node_db_mysql::Connection::setInitCommand(const std::string& initCommand) throw() {
     this->initCommand = initCommand;
 }
 
+void node_db_mysql::Connection::setReadTimeout(const uint32_t readTimeout) throw() {
+    this->readTimeout = readTimeout;
+}
+
+void node_db_mysql::Connection::setReconnect(const bool reconnect) throw() {
+    this->reconnect = reconnect;
+}
+
 void node_db_mysql::Connection::setSocket(const std::string& socket) throw() {
     this->socket = socket;
+}
+
+void node_db_mysql::Connection::setSslVerifyServer(const bool sslVerifyServer) throw() {
+    this->sslVerifyServer = sslVerifyServer;
 }
 
 void node_db_mysql::Connection::setTimeout(const uint32_t timeout) throw() {

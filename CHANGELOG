@@ -2,6 +2,10 @@ For more in depth changelog, check the Github Commits:
 
 https://github.com/mariano/node-db-mysql/commits/master
 
+0.6.4
+-----
+* Fixed issue where Database.setReconnect() and Database.setSslVerifyServer() were causing fatal errors
+
 0.6.3
 -----
 * Exporting Query so its prototype can be extended from JS

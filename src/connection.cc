@@ -9,18 +9,10 @@ node_db_mysql::Connection::Connection()
       timeout(0),
       writeTimeout(0),
       connection(NULL) {
-    this->connection = new MYSQL();
-    if (this->connection == NULL) {
-        throw node_db::Exception("Cannot create MYSQL handle");
-    }
-    mysql_init(this->connection);
 }
 
 node_db_mysql::Connection::~Connection() {
     this->close();
-    if (this->connection != NULL) {
-        delete this->connection;
-    }
 }
 
 void node_db_mysql::Connection::setCharset(const std::string& charset) throw() {
@@ -68,6 +60,11 @@ bool node_db_mysql::Connection::isAlive(bool ping) throw() {
 
 void node_db_mysql::Connection::open() throw(node_db::Exception&) {
     this->close();
+
+    this->connection = mysql_init(NULL);
+    if (this->connection == NULL) {
+        throw node_db::Exception("Cannot create MYSQL handle");
+    }
 
     if (!this->charset.empty()) {
         mysql_options(this->connection, MYSQL_SET_CHARSET_NAME, this->charset.c_str());

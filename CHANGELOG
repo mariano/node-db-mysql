@@ -2,6 +2,10 @@ For more in depth changelog, check the Github Commits:
 
 https://github.com/mariano/node-db-mysql/commits/master
 
+0.6.6
+-----
+* Fixed issue where new connections would throw SEGFAULT on some OSs
+
 0.6.5
 -----
 * Fixed issue where conversion of result fields to JS Date object could be truncated on some systems

@@ -9,6 +9,7 @@ node_db_mysql::Connection::Connection()
       timeout(0),
       writeTimeout(0),
       connection(NULL) {
+    this->port = 3306;
 }
 
 node_db_mysql::Connection::~Connection() {

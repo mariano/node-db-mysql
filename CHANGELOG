@@ -2,6 +2,10 @@ For more in depth changelog, check the Github Commits:
 
 https://github.com/mariano/node-db-mysql/commits/master
 
+0.6.7
+-----
+* Throwing exception if Query.execute() is issued without an active connection
+
 0.6.6
 -----
 * Fixed issue where new connections would throw SEGFAULT on some OSs

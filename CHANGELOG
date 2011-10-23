@@ -2,6 +2,12 @@ For more in depth changelog, check the Github Commits:
 
 https://github.com/mariano/node-db-mysql/commits/master
 
+0.7.0
+-----
+* Fixing issue where ints were treated as floating point numbers
+* Allowing user to change precision of floating point numbers
+* Fixing unit tests (they require a valid DB connection now. Check the tests-settings.json file)
+
 0.6.9
 -----
 * Fixing precision with big numbers

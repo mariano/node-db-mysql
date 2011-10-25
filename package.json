@@ -13,7 +13,7 @@
 , "licenses" : [ { "type" : "MIT" } ]
 , "repositories" :
   [ { "type" : "git"
-    , "url" : "http://github.com/mariano/node-db-mysql.git"
+    , "url" : "https://github.com/mariano/node-db-mysql.git"
     }
   ]
 , "main" : "./db-mysql"

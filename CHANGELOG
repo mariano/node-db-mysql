@@ -2,6 +2,10 @@ For more in depth changelog, check the Github Commits:
 
 https://github.com/mariano/node-db-mysql/commits/master
 
+0.7.1
+-----
+* Fixing issue with number conversions possibly failing (thanks @tojocky)
+
 0.7.0
 -----
 * Fixing issue where ints were treated as floating point numbers

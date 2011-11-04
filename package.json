@@ -9,7 +9,7 @@
     , "email": "mgiglesias@gmail.com"
     }
   ]
-, "bugs" : { "web" : "http://github.com/mariano/node-db-mysql/issues" }
+, "bugs" : { "url" : "http://github.com/mariano/node-db-mysql/issues" }
 , "licenses" : [ { "type" : "MIT" } ]
 , "repositories" :
   [ { "type" : "git"

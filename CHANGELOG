@@ -2,6 +2,10 @@ For more in depth changelog, check the Github Commits:
 
 https://github.com/mariano/node-db-mysql/commits/master
 
+0.7.2
+-----
+* Fixing issue where numbers that are part of a string could be treated as pure numbers
+
 0.7.1
 -----
 * Fixing issue with number conversions possibly failing (thanks @tojocky)

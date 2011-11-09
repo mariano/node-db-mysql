@@ -25,5 +25,15 @@ function extend(target, source) {
     return target;
 }
 
-exports.Query = extend(binding.Query, EventEmitter);
-exports.Database = extend(binding.Mysql, EventEmitter);
+var BaseEventEmitter = extend(function() {}, EventEmitter);
+BaseEventEmitter.prototype.emit = function() {
+    var type = arguments[0];
+    if (type === 'error' && (!this._events || !this._events.error || (Array.isArray(this._events.error) && !this._events.error.length))) {
+        // Silently allow unattached error events
+        return;
+    }
+    return EventEmitter.prototype.emit.apply(this, arguments);
+}
+
+exports.Query = extend(binding.Query, BaseEventEmitter);
+exports.Database = extend(binding.Mysql, BaseEventEmitter);

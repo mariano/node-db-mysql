@@ -2,6 +2,10 @@ For more in depth changelog, check the Github Commits:
 
 https://github.com/mariano/node-db-mysql/commits/master
 
+0.7.4
+-----
+* Fixing issue where when on error event handler was attached, node-db fails horribly
+
 0.7.3
 -----
 * Fixing issue when using the three-argument call on Query::execute()

@@ -2,6 +2,11 @@ For more in depth changelog, check the Github Commits:
 
 https://github.com/mariano/node-db-mysql/commits/master
 
+0.7.5
+-----
+* Fixing issue where error message would be lost when multiple queries errored out
+* Adding tests to show chained JOINs usage
+
 0.7.4
 -----
 * Fixing issue where when on error event handler was attached, node-db fails horribly

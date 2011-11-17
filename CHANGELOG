@@ -2,6 +2,10 @@ For more in depth changelog, check the Github Commits:
 
 https://github.com/mariano/node-db-mysql/commits/master
 
+0.7.6
+-----
+* Fixing issue where NODE_PSYMBOL throws compilation errors on node <= 0.4.9
+
 0.7.5
 -----
 * Fixing issue where error message would be lost when multiple queries errored out

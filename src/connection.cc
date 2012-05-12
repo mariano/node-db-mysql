@@ -125,6 +125,10 @@ void node_db_mysql::Connection::close() {
 }
 
 std::string node_db_mysql::Connection::escape(const std::string& string) const throw(node_db::Exception&) {
+    if (!this->alive) {
+        throw node_db::Exception("Can\'t escape string without an active connection");
+    }
+
     char* buffer = new char[string.length() * 2 + 1];
     if (buffer == NULL) {
         throw node_db::Exception("Can\'t create buffer to escape string");

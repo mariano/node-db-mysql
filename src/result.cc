@@ -77,12 +77,12 @@ node_db_mysql::Result::Result(MYSQL* connection) throw(node_db::Exception&)
     nextRow(NULL) {
     this->result = mysql_store_result(this->connection);
 
-    MYSQL_RES *result;
+    MYSQL_RES *_nextResult;
     /* check if there are more resultsets */
     while(mysql_more_results(this->connection)) {
         if (mysql_next_result(this->connection)<=0) {
-	    result = mysql_store_result(this->connection);
-	    mysql_free_result(result);
+	    _nextResult = mysql_store_result(this->connection);
+	    mysql_free_result(_nextResult);
 	}
     }
 

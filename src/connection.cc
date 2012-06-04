@@ -105,7 +105,7 @@ void node_db_mysql::Connection::open() throw(node_db::Exception&) {
         this->database.c_str(),
         this->port,
         !this->socket.empty() ? this->socket.c_str() : NULL,
-        0);
+        CLIENT_MULTI_RESULTS);
 
 #if MYSQL_VERSION_ID >= 50013 && MYSQL_VERSION_ID < 50019
     // MySQL incorrectly resets the MYSQL_OPT_RECONNECT option to its default value before MySQL 5.0.19

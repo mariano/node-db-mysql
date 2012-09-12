@@ -18,7 +18,8 @@
   ]
 , "main" : "./db-mysql"
 , "scripts" :
-  { "install": "node-waf configure build"
+  { "preinstall": "git clone -b bigint_pre_libuv git://github.com/imkira/node-db.git lib/node-db"
+  , "install": "node-waf configure build"
   , "preuninstall": "rm -rf build/*"
   , "test" : "node-waf test"
   , "doc" : "node-waf doc"

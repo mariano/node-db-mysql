@@ -38,6 +38,7 @@ def configure(conf):
   conf.check_cxx(lib="mysqlclient_r", errmsg="Missing libmysqlclient_r")
 
 def build(bld):
+  Utils.exec_command('git submodule update --recursive')
   obj = bld.new_task_gen("cxx", "shlib", "node_addon")
   obj.target = "mysql_bindings"
   obj.source = "lib/node-db/binding.cc lib/node-db/connection.cc lib/node-db/events.cc lib/node-db/exception.cc lib/node-db/query.cc lib/node-db/result.cc src/connection.cc src/mysql.cc src/query.cc src/result.cc src/mysql_bindings.cc"

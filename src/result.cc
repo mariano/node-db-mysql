@@ -77,6 +77,15 @@ node_db_mysql::Result::Result(MYSQL* connection) throw(node_db::Exception&)
     nextRow(NULL) {
     this->result = mysql_store_result(this->connection);
 
+    MYSQL_RES* tmp_result;
+    while (mysql_more_results(this->connection)) {
+        if (mysql_next_result(this->connection)) {
+            tmp_result = mysql_use_result(this->connection);
+            mysql_free_result(tmp_result);
+        }
+    }
+    tmp_result = NULL;
+
     try {
         if (result == NULL && mysql_field_count(this->connection) != 0) {
             throw node_db::Exception(mysql_error(this->connection));

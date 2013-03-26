@@ -1,4 +1,11 @@
 {
+  'conditions': [
+    ['OS=="mac"', {
+      'make_global_settings': [
+        ['CC', '/usr/bin/gcc'],
+        ['CXX', '/usr/bin/g++']
+      ]
+    }]],
   "targets": [
     {
       "target_name": "mysql_bindings",
@@ -16,6 +23,13 @@
       'cflags_cc!': [
         '-fno-exceptions'
       ],
+      'conditions': [
+        ['OS=="mac"', {
+          'xcode_settings': {
+            'GCC_ENABLE_CPP_EXCEPTIONS': 'YES',
+            'GCC_ENABLE_CPP_RTTI': 'YES'
+          }
+        }]],
       "sources": [ 
         "lib/node-db/exception.cc",
         "lib/node-db/binding.cc",

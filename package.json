@@ -18,7 +18,7 @@
   ]
 , "main" : "./db-mysql"
 , "scripts" :
-  { "preinstall": "git clone git://github.com/imkira/node-db.git lib/node-db"
+  { "preinstall": "git clone git://github.com/mariano/node-db.git lib/node-db"
   , "install": "node-gyp rebuild --release"
   , "preuninstall": "rm -rf build/*"
   , "test" : "nodeunit tests.js"

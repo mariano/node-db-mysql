@@ -14,8 +14,10 @@ node_db_mysql::Result::Column::Column(const MYSQL_FIELD& column) {
         case MYSQL_TYPE_YEAR:
         case MYSQL_TYPE_INT24:
         case MYSQL_TYPE_LONG:
-        case MYSQL_TYPE_LONGLONG:
             this->type = INT;
+            break;
+        case MYSQL_TYPE_LONGLONG:
+            this->type = BIGINT;
             break;
         case MYSQL_TYPE_FLOAT:
         case MYSQL_TYPE_DOUBLE:

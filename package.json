@@ -3,7 +3,7 @@
 , "keywords": ["database","db","native","binding","library","plugin","client","mysql","libmysql"]
 , "homepage" : "http://nodejsdb.org/db-mysql"
 , "version" : "0.7.6"
-, "engines" : { "node" : ">=0.4.1" }
+, "engines" : { "node" : ">=0.8.0" }
 , "maintainers" :
   [ { "name": "Mariano Iglesias"
     , "email": "mgiglesias@gmail.com"
@@ -18,13 +18,14 @@
   ]
 , "main" : "./db-mysql"
 , "scripts" :
-  { "install": "node-waf configure build"
+  { "preinstall": "git clone git://github.com/mariano/node-db.git lib/node-db"
+  , "install": "node-gyp rebuild --release"
   , "preuninstall": "rm -rf build/*"
-  , "test" : "node-waf test"
-  , "doc" : "node-waf doc"
+  , "test" : "nodeunit tests.js"
   }
 , "devDependencies" :
   { "nodeunit" : "*"
   , "nodelint" : "*"
+  , "node-gyp" : "*"
   }
 }
